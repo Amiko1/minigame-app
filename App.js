@@ -9,8 +9,6 @@ import * as SplashScreen from "expo-splash-screen";
 
 import { useFonts } from "expo-font";
 
-SplashScreen.preventAutoHideAsync();
-
 export default function App() {
   const [userNumber, setuserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
@@ -20,15 +18,6 @@ export default function App() {
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
   });
 
-  useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
   function pickedNumberHandler(pickedNumber) {
     setuserNumber(pickedNumber);
     setGameIsOver(false);
