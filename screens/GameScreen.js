@@ -1,3 +1,5 @@
+import { Text } from "react-native";
+
 export default function GameScreen() {
-  return <div>GameScreen</div>;
+  return <Text>GameScreen</Text>;
 }
