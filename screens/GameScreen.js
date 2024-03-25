@@ -1,10 +1,11 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import Title from "../components/ui/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import InstructionText from "../components/ui/InstructionText";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import GuessLogitem from "../components/game/GuessLogitem";
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -22,10 +23,11 @@ let maxBoundary = 100;
 export default function GameScreen({ userNumber, onGameover }) {
   const initialGuess = generateRandomBetween(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [guessRounds, setGuessRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
-      onGameover();
+      onGameover(guessRounds.length);
     }
   }, [currentGuess, userNumber, onGameover]);
 
@@ -57,6 +59,7 @@ export default function GameScreen({ userNumber, onGameover }) {
       currentGuess
     );
     setCurrentGuess(newRandomNumber);
+    setGuessRounds((prevGuessRounds) => [...prevGuessRounds, newRandomNumber]);
   }
 
   return (
@@ -80,7 +83,15 @@ export default function GameScreen({ userNumber, onGameover }) {
           </View>
         </View>
       </View>
-      {/* <View>Log around</View> */}
+      <View style={styles.listContainer}>
+        <FlatList
+          data={guessRounds}
+          renderItem={(itemData) => (
+            <GuessLogitem roundNumer={itemData.index} guess={itemData.item} />
+          )}
+          keyExtrator={(item) => item}
+        />
+      </View>
     </View>
   );
 }
@@ -108,5 +119,9 @@ const styles = StyleSheet.create({
   },
   insturctionText: {
     marginBottom: 16,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });

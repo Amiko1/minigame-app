@@ -29,6 +29,11 @@ export default function App() {
     setGuessRounds(0);
   }
 
+  function gameoverHandler(numberOfRounds) {
+    setGameIsOver(true);
+    setGuessRounds(numberOfRounds);
+  }
+
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
   if (userNumber) {
@@ -47,9 +52,6 @@ export default function App() {
     );
   }
 
-  function gameoverHandler() {
-    setGameIsOver(true);
-  }
   return (
     <>
       <LinearGradient
