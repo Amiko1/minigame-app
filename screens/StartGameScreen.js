@@ -1,20 +1,33 @@
 import { TextInput, View, StyleSheet } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import { useState } from "react";
 
 export default function StartGameScreen() {
+  const [enterednumber, setEnterednumber] = useState("");
+
+  function nnumberInputHandler(enteredNumber) {
+    setEnterednumber(enteredNumber);
+  }
+
+  function confirmInputHandler() {}
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
         style={styles.numberInput}
         maxLength={2}
         keyboardType="number-pad"
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={nnumberInputHandler}
+        value={enterednumber}
       />
       <View style={styles.buttonContainer}>
         <View style={styles.button}>
           <PrimaryButton>Reset</PrimaryButton>
         </View>
         <View style={styles.button}>
-          <PrimaryButton>Confirm</PrimaryButton>
+          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
         </View>
       </View>
     </View>
