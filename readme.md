@@ -20,7 +20,7 @@
 
 ## Key Features
 
-- Enter Number
+- use Input his/her Number
 
 - Computer Gues your number
 
